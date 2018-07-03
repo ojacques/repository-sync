@@ -164,7 +164,7 @@ class Cloner
     output = output.gsub(/#{ghe_token}/, '<GHE_TOKEN>') if ghe_token
     logger.info "Result: #{output}"
     if status != 0
-      report_error(output)
+      report_error(output) unless defined?(DO_NOT_CREATE_ISSUE_ON_ERROR) && DO_NOT_CREATE_ISSUE_ON_ERROR == 'true'
       error = "Command `#{args.join(' ')}` failed"
       error = error.gsub(/#{dotcom_token}/, '<DOTCOM_TOKEN>') if dotcom_token
       error = error.gsub(/#{ghe_token}/, '<GHE_TOKEN>') if ghe_token
