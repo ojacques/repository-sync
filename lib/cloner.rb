@@ -55,11 +55,12 @@ class Cloner
         end
 
         delete_branch
-        logger.info 'fin'
+        logger.info 'Done!'
       end
     end
   rescue StandardError => e
-    logger.warn e
+    logger.warn e.message
+    logger.warn e.backtrace.join("\n\t").grep_v(/\/gems\//).map { |l| l.gsub(`pwd`.strip + '/', '') };
     raise
   ensure
     FileUtils.rm_rf(tmpdir)
