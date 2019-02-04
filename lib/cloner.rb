@@ -60,7 +60,7 @@ class Cloner
     end
   rescue StandardError => e
     logger.warn e.message
-    logger.warn e.backtrace.join("\n\t").grep_v(/\/gems\//).map { |l| l.gsub(`pwd`.strip + '/', '') };
+    logger.warn e.backtrace.grep(/\/app\//).join("\n\t")
     raise
   ensure
     FileUtils.rm_rf(tmpdir)
